@@ -7,7 +7,7 @@
 #' @noRd
 app_ui <- function(request) {
 
-  options <- list()
+  options <- list(easing = "linear", scrollingSpeed = 400, keyboardScrolling = TRUE)
 
   tagList(
     # Leave this function for adding external resources
