@@ -70,7 +70,40 @@ mod_comp_server <- function(input, output, session){
       theme = NULL
     )
     
-    df_datenguide %>% 
+    # var to color mapping
+    my_colors <- tibble::tibble(
+      name = c("München", "Berlin", "Stuttgart", "Frankfurt am Main", 
+               "Essen", "Düsseldorf", "Köln", "Hamburg", 
+               "Dortmund", "Leipzig", "Bremen", "Dresden"),
+      color = c("#7F3C8D", "#11A579", "#3969AC", "#F2B701",
+                "#E73F74", "#80BA5A", "#E68310", "#008695",
+                "#CF1C90", "#F97B72", "#4B4B8F", "#A5AA99")
+    )
+    
+    # color_it <- function(x){
+    #   switch(x,
+    #          München = "#7F3C8D", 
+    #          Berlin = "#11A579", 
+    #          Stuttgart = "#3969AC", 
+    #          `Frankfurt am Main` = "#F2B701", 
+    #          Essen = "#E73F74", 
+    #          Düsseldorf = "#80BA5A", 
+    #          Köln = "#E68310", 
+    #          Hamburg = "#008695", 
+    #          Dortmund = "#CF1C90", 
+    #          Leipzig = "#f97b72", 
+    #          Bremen = "#4b4b8f", 
+    #          Dresden = "#"
+    #   )
+    # }
+    
+    # requires a city selected
+    validate(
+      need(length(input$city_select) > 0, message = "Select at least one city")
+    )
+    
+    # filter selected and match with color
+    dat <- df_datenguide %>% 
       #dplyr::arrange(-BEV016) %>%  ## sort by population
       dplyr::arrange(-AI0201) %>%  ## sort by density
       #dplyr::arrange(-AI1301) %>%  ## sort by cars per 1,000 inhabitants
@@ -84,18 +117,18 @@ mod_comp_server <- function(input, output, session){
       ) %>%
       dplyr::mutate(year = as.character(year)) %>% 
       dplyr::arrange(year) %>% 
-      dplyr::filter(name %in% input$city_select) %>% 
+      dplyr::filter(name %in% input$city_select) %>%
+      dplyr::left_join(my_colors, by = "name")
+    
+    ## plot
+    dat %>% 
       dplyr::group_by(name) %>% 
       echarts4r::e_charts(year) %>% 
       echarts4r::e_line_(input$value) %>% 
       echarts4r::e_tooltip(trigger = "axis") %>% 
-      echarts4r::e_legend(type = "scroll") %>%  
-      #echarts4r::e_theme("wonderland") %>% 
-      echarts4r::e_color(
-        #c("#247BA0", "#FF1654", "#70C1B3", "#2f2f2f", "#F3FFBD", "#B2DBBF")
-        c("#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", 
-          "#E68310", "#008695", "#CF1C90", "#f97b72", "#4b4b8f", "#A5AA99")
-      )
+      echarts4r::e_legend(type = "scroll") %>% 
+      #echarts4r::e_theme("wonderland")  %>% 
+      e_color(unique(dat$color))
   })
 }
     
