@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Staatliches:400,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Chivo:400,700,400italic&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Arbutus+Slab&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Arbutus+Slab+Highlight:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arbutus+Slab:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Overpass-Mono:400&display=swap');
 
@@ -11,7 +7,7 @@
 }
 
 p{
-  color: #3f4844;
+  color: #063a2b;
   font-family: 'Arbutus Slab', serif;
   font-size: 15px;
 }
@@ -21,24 +17,24 @@ em{
 }
 
 code{
-  color: #4a896c;
+  color: #11a579;
   font-family: 'Overpass Mono', sans-serif;
 }
 
 .title{
-  color: #4a896c;
+  color: #11a579;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 64px;
 }
 
 .header{
-  color: #4a896c;
+  color: #11a579;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 35px;
 }
 
 .subtitle{
-  color: #48524e;
+  color: #063a2b;
   font-size: 46px;
   font-weight: 700;
 }
@@ -55,7 +51,7 @@ code{
 }
 
 .source{
-  color: #3f4844;
+  color: #063a2b;
   font-family: 'Arbutus Slab', serif;
   font-size: 10px;
   text-align: left;
