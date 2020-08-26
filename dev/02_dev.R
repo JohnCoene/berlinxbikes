@@ -21,6 +21,7 @@ usethis::use_package( "dplyr" )
 usethis::use_package( "tidyr" )
 usethis::use_package( "fullPage" )
 usethis::use_package( "emo" )
+usethis::use_package( "echarts4r" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/

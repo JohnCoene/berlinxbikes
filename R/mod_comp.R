@@ -10,9 +10,31 @@
 mod_comp_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
-    p("Overview plots comparing the accidents per 10.000 cars and 100.000 inhabitants for the six largest German cities with regard to population."),
-    h3(class = "source footer",
-       "Source: “Statistische Ämter des Bundes und der Länder” via", code("datenguidepy"))
+    pageContainer(
+      h2("Accidents through time in major German cities"),
+      br(),
+      fluidRow(
+        column(
+          6,
+          uiOutput(ns("city_select_generated"))
+        ),
+        column(
+          6,
+          shinyWidgets::radioGroupButtons(
+            inputId = ns("value"),
+            label = "Regional Statistic",
+            choices = c("per 10,000 inhabitants", "per 10,000 cars", "total"),
+            checkIcon = list(
+              yes = icon("ok",
+                         lib = "glyphicon")
+            )
+          )
+        )
+      ),
+      echarts4r::echarts4rOutput(ns("trend"), height="50vh"),
+      h3(class = "source footer",
+         "Source: “Statistische Ämter des Bundes und der Länder” via", code("datenguidepy"))
+    )
   )
 }
     
@@ -22,6 +44,59 @@ mod_comp_ui <- function(id){
 mod_comp_server <- function(input, output, session){
   ns <- session$ns
  
+  output$city_select_generated <- renderUI({
+    cns <- df_datenguide %>% 
+      #dplyr::arrange(-BEV016) %>%  ## sort by population
+      dplyr::arrange(-AI0201) %>%  ## sort by density
+      #dplyr::arrange(-AI1301) %>%  ## sort by cars per 1,000 inhabitants
+      dplyr::mutate(name = forcats::fct_inorder(name)) %>% 
+      dplyr::distinct(name) %>% 
+      dplyr::pull(name)
+    
+    selectizeInput(
+      ns("city_select"),
+      "Search a city (sorted by population density)",
+      choices = cns,
+      selected = c("Berlin", "München"),
+      multiple = TRUE
+    )
+  })
+  
+  output$trend <- echarts4r::renderEcharts4r({
+    req(input$city_select)
+    
+    echarts4r::e_common(
+      font_family = "Overpass",
+      theme = NULL
+    )
+    
+    df_datenguide %>% 
+      #dplyr::arrange(-BEV016) %>%  ## sort by population
+      dplyr::arrange(-AI0201) %>%  ## sort by density
+      #dplyr::arrange(-AI1301) %>%  ## sort by cars per 1,000 inhabitants
+      dplyr::mutate(name = forcats::fct_inorder(name)) %>% 
+      dplyr::rename(
+        "per 10,000 inhabitants" = "AI1302",
+        "per 10,000 cars" = "AI1303",
+        "total" = "VER002",
+        "Injuries per 10,000 inhabitants" = "AI1305",
+        "Deaths per 10,000 inhabitants" = "AI1304"
+      ) %>%
+      dplyr::mutate(year = as.character(year)) %>% 
+      dplyr::arrange(year) %>% 
+      dplyr::filter(name %in% input$city_select) %>% 
+      dplyr::group_by(name) %>% 
+      echarts4r::e_charts(year) %>% 
+      echarts4r::e_line_(input$value) %>% 
+      echarts4r::e_tooltip(trigger = "axis") %>% 
+      echarts4r::e_legend(type = "scroll") %>%  
+      #echarts4r::e_theme("wonderland") %>% 
+      echarts4r::e_color(
+        #c("#247BA0", "#FF1654", "#70C1B3", "#2f2f2f", "#F3FFBD", "#B2DBBF")
+        c("#7F3C8D", "#11A579", "#3969AC", "#F2B701", "#E73F74", "#80BA5A", 
+          "#E68310", "#008695", "#CF1C90", "#f97b72", "#4b4b8f", "#A5AA99")
+      )
+  })
 }
     
 ## To be copied in the UI

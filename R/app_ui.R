@@ -4,6 +4,7 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import fullPage
+#' @import echarts4r
 #' @noRd
 app_ui <- function(request) {
 
@@ -16,7 +17,7 @@ app_ui <- function(request) {
     fullPage::pagePiling(
       #sections.color = c('#ebebeb', '#d7d7d7', '#ebebeb', '#d7d7d7', '#ebebeb', '#3f4844'),
       #sections.color = c('#ebebeb', '#f2f2f2', '#f2f2f2', '#ebebeb', '#ebebeb', '#3d3d3c'),
-      sections.color = c('#ebebeb', '#d7d7d7', '#d7d7d7', '#ebebeb', '#ebebeb', '#3d3d3c'),
+      sections.color = c('#ebebeb', '#f1f1f1', '#f1f1f1', '#dddddd', '#dddddd', '#3d3d3c'),
       opts = options,
       menu = c(
         "Start" = "home",
@@ -29,15 +30,10 @@ app_ui <- function(request) {
       fullPage::pageSectionImage(
         center = TRUE,
         img = "www/Movement_BerlinByBike.png",
-        menu = "home",
-        #h1("Moving Through Berlin By Bike", class = "title top shadow-dark"),
+        menu = "home",        #h1("Moving Through Berlin By Bike", class = "title top shadow-dark"),
         h1("Moving Through Berlin By Bike", class = "title top shadow-dark"),
         h2(typed::typedOutput("subtitle"), class = "subtitle shadow-light"),
         h3(typed::typedOutput("caption"), class = "caption footer")
-        #h3(
-        #  class = "light footer",
-        #  "by", tags$a("news-r", href = "https://news-r.org", class = "link"), "with", emo::ji("coffee")
-        #)
       ),
       fullPage::pageSection(
         center = TRUE,
