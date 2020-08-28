@@ -45,7 +45,7 @@ mod_comp_server <- function(input, output, session){
   ns <- session$ns
  
   output$city_select_generated <- renderUI({
-    cns <- df_datenguide %>% 
+    cns <- datenguide %>% 
       #dplyr::arrange(-BEV016) %>%  ## sort by population
       dplyr::arrange(-AI0201) %>%  ## sort by density
       #dplyr::arrange(-AI1301) %>%  ## sort by cars per 1,000 inhabitants
@@ -80,30 +80,13 @@ mod_comp_server <- function(input, output, session){
                 "#CF1C90", "#F97B72", "#4B4B8F", "#A5AA99")
     )
     
-    # color_it <- function(x){
-    #   switch(x,
-    #          München = "#7F3C8D", 
-    #          Berlin = "#11A579", 
-    #          Stuttgart = "#3969AC", 
-    #          `Frankfurt am Main` = "#F2B701", 
-    #          Essen = "#E73F74", 
-    #          Düsseldorf = "#80BA5A", 
-    #          Köln = "#E68310", 
-    #          Hamburg = "#008695", 
-    #          Dortmund = "#CF1C90", 
-    #          Leipzig = "#f97b72", 
-    #          Bremen = "#4b4b8f", 
-    #          Dresden = "#"
-    #   )
-    # }
-    
     # requires a city selected
     validate(
       need(length(input$city_select) > 0, message = "Select at least one city")
     )
     
     # filter selected and match with color
-    dat <- df_datenguide %>% 
+    dat <- datenguide %>% 
       #dplyr::arrange(-BEV016) %>%  ## sort by population
       dplyr::arrange(-AI0201) %>%  ## sort by density
       #dplyr::arrange(-AI1301) %>%  ## sort by cars per 1,000 inhabitants
@@ -127,7 +110,6 @@ mod_comp_server <- function(input, output, session){
       echarts4r::e_line_(input$value) %>% 
       echarts4r::e_tooltip(trigger = "axis") %>% 
       echarts4r::e_legend(type = "scroll") %>% 
-      #echarts4r::e_theme("wonderland")  %>% 
       e_color(unique(dat$color))
   })
 }

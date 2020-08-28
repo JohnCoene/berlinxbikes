@@ -2,10 +2,24 @@ Package: berlinxbikes
 Title: Bike Lane Types and Accidents in Berlin
 Version: 0.0.0.9000
 Authors@R:
-    person(given = "Cédric",
-           family = "Scherer",
-           role = c("aut", "cre"),
-           email = "cedricphilippscherer@gmail.com")
+    c(
+        person(given = "Cédric",
+               family = "Scherer",
+               role = c("aut", "cre"),
+               email = "cedricphilippscherer@gmail.com"),
+        person(given = "Andreas",
+               family = "Neumann",
+               role = c("ctb"),
+               email = ""),
+        person(given = "Saleh",
+               family = "Hamed",
+               role = c("ctb"),
+               email = ""),
+        person(given = "Steffen",
+               family = "Reinhold",
+               role = c("ctb"),
+               email = "")
+    )
 Description: A shiny app to explore bike lane types and bike accidents in Berlin.
 License: CC
 Imports:
@@ -22,7 +36,9 @@ Imports:
     tidyr,
     fullPage,
     emo,
-    echarts4r
+    echarts4r,
+    leaflet,
+    tmap
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

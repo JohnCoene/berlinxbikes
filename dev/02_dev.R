@@ -22,6 +22,8 @@ usethis::use_package( "tidyr" )
 usethis::use_package( "fullPage" )
 usethis::use_package( "emo" )
 usethis::use_package( "echarts4r" )
+usethis::use_package( "tmap" )
+usethis::use_package( "leaflet" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -42,7 +44,13 @@ golem::add_css_file( "custom" )
 
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw( name = "my_dataset", open = FALSE )
+usethis::use_data_raw( name = "datenguide", open = TRUE )
+usethis::use_data_raw( name = "bike_lanes", open = TRUE )
+usethis::use_data_raw( name = "bike_accidents", open = TRUE )
+usethis::use_data_raw( name = "districts", open = TRUE )
+usethis::use_data_raw( name = "street_districts", open = TRUE )
+usethis::use_data_raw( name = "streets", open = TRUE )
+usethis::use_data_raw( name = "world", open = TRUE )
 
 ## Tests ----
 ## Add one line by test you want to create

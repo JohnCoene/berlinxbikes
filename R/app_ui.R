@@ -29,7 +29,7 @@ app_ui <- function(request) {
       ),
       fullPage::pageSectionImage(
         center = TRUE,
-        img = "www/Movement_BerlinByBike.png",
+        img = "www/Movement_BerlinByBike_shiny.png",
         menu = "home",        #h1("Moving Through Berlin By Bike", class = "title top shadow-dark"),
         h1("Moving Through Berlin By Bike", class = "title top shadow-dark"),
         h2(typed::typedOutput("subtitle"), class = "subtitle shadow-light"),
