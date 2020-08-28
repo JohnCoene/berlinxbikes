@@ -50,7 +50,6 @@ usethis::use_data_raw( name = "bike_accidents", open = TRUE )
 usethis::use_data_raw( name = "districts", open = TRUE )
 usethis::use_data_raw( name = "street_districts", open = TRUE )
 usethis::use_data_raw( name = "streets", open = TRUE )
-usethis::use_data_raw( name = "world", open = TRUE )
 
 ## Tests ----
 ## Add one line by test you want to create

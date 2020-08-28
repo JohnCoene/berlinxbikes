@@ -9,7 +9,7 @@
 #' @importFrom shiny NS tagList 
 #' @import tmap
 
-world_vars <- setdiff(names(World), c("iso_a3", "name", "sovereignt", "geometry"))
+#world_vars <- setdiff(names(World), c("iso_a3", "name", "sovereignt", "geometry"))
 
 mod_map_ui <- function(id){
   ns <- NS(id)
@@ -27,18 +27,18 @@ mod_map_server <- function(input, output, session){
   ns <- session$ns
   
   output$map <- renderTmap({
-    tm_shape(World) +
-      tm_polygons(world_vars[1], zindex = 401)
-    #tm_shape(districts) +
-      # tm_polygons(id = "Gemeinde_n", col = "grey92", popup.vars = c("District:" = "Gemeinde_n", "Area:" = "area"))# +
-      #tm_shape(traffic_cells) + 
+    #tm_shape(World) +
+    #  tm_polygons(world_vars[1], zindex = 401)
+    tm_shape(districts) +
+      tm_polygons(id = "Gemeinde_n", col = "grey92", popup.vars = c("District:" = "Gemeinde_n", "Area:" = "area"))# +
+      # tm_shape(traffic_cells) +
       #  tm_polygons(id = "Name", col = "grey92", border.col = "#11a579", popup.vars = c("Traffic cell name:" = "NAME", "Traffic Cell ID:" = "VZ_VBZ_TYP", "LOR Area Code:" = "LOR_PRG")) +
-      #tm_shape(streets) + 
+      # tm_shape(streets) +
       #  tm_lines(col = "grey40", lwd = 2.5, palette = "plasma", title.col = "Category:", id = "name", popup.vars = c("Class:" = "fclass")) +
-      #tm_shape(bike_lanes) + 
+      # tm_shape(bike_lanes) +
       #  tm_lines(col = "agg", lwd = 2.5, palette = "plasma", title.col = "Category:", id = "street", popup.vars = c("Category:" = "agg", "Combination:" = "sub"), contrast = 2) +
-      #tm_shape(bike_accidents) + 
-      #  tm_dots(size = .01, col = "grey80") 
+      # tm_shape(bike_accidents) +
+      #  tm_dots(size = .01, col = "grey80")
     
   })
   
