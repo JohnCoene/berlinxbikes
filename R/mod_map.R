@@ -14,7 +14,7 @@
 mod_map_ui <- function(id){
   ns <- NS(id)
   fullPage::pageContainer(
-    tmapOutput("map"),
+    tmapOutput(ns("map")),
     h3(class = "source footer",
        "Source: Unfallatlas, Statistische Ämter des Bundes und der Länder (github.com/tagesspiegel/Unfallatlas-Berlin-2018)")
   )
